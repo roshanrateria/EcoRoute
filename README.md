@@ -1,7 +1,6 @@
 # 🌿 EcoRoute — App Brief
 
 > **AI-powered food delivery that batches orders to cut emissions, cost, and traffic.**  
-> Built for AMD Slingshot Hackathon 2026
 
 ---
 
@@ -120,10 +119,7 @@ The batch waiting screen includes an **"Invite Friends to Batch!"** card:
 
 ## 💡 Eco-Grade: Locality-Based Batching Probability
 
-### Current Implementation
-Restaurants display an **Eco Score** badge: `A+`, `A`, or `B`. Currently these are static values assigned at seed time.
-
-### Proposed Concept: Dynamic Eco-Grades
+### Dynamic Eco-Grades
 
 The Eco-Grade should represent the **probability of successful batching** for a restaurant, relative to the **user's locality**.
 
@@ -160,31 +156,9 @@ Eco-Grade = f(order_density_near_user, restaurant_popularity_in_area, time_of_da
 - **Nudges users toward batchable orders** — "Green Bowl Kitchen is A+ in your area!" encourages batching.
 - **Manages expectations** — A `B` grade tells the user batching is unlikely, so Rush might be the better choice.
 - **Creates a feedback loop** — More batched orders → better grades → more users choose batching → even better grades.
-
-#### No Frontend Changes Needed
-
-The frontend already renders `restaurant.eco_score` as a badge. The backend would simply compute the score dynamically based on the user's `delivery_lat` / `delivery_lng` instead of returning the static field.
-
-```python
-# Pseudocode for dynamic eco-grade
-async def calculate_eco_grade(restaurant_id, user_lat, user_lng):
-    radius_km = 2
-    recent_orders = count_orders_near(user_lat, user_lng, radius_km, last_hours=2)
-    restaurant_orders = count_orders_for_restaurant(restaurant_id, radius_km, last_hours=6)
-    peak_multiplier = get_peak_multiplier(current_hour)
-    
-    score = (recent_orders * 0.4 + restaurant_orders * 0.3) * peak_multiplier
-    
-    if score > 8: return "A+"
-    if score > 5: return "A"
-    if score > 2: return "B+"
-    return "B"
-```
-
 ---
 
-## 🎯 Demo Flow (Hackathon Golden Path)
-
+## 🎯 User Flow
 ```
 1. Open app → Onboarding (3 screens) → "Get Started"
 2. Login: rahul@iitd.ac.in / demo123
@@ -258,27 +232,6 @@ All API routes are serverless functions in `frontend/api/` that connect to the N
 | **Design** | Mobile-first, glassmorphism, dark green + lime palette |
 | **Deployment** | Vercel (Frontend + Serverless API) |
 
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Purpose |
-|---|---|---|
-| `POST` | `/api/auth/register` | Create account |
-| `POST` | `/api/auth/login` | Login, returns JWT |
-| `GET` | `/api/auth/me` | Get fresh user stats |
-| `GET` | `/api/restaurants` | List all restaurants |
-| `GET` | `/api/restaurants/batch-counts` | Active batch counts per restaurant |
-| `GET` | `/api/restaurants/{id}` | Restaurant detail + menu |
-| `POST` | `/api/orders` | Place order (batch or rush) |
-| `GET` | `/api/orders` | User's order history |
-| `GET` | `/api/orders/{id}/tracking` | Real-time tracking + batch info |
-| `POST` | `/api/orders/{id}/rush` | Convert batch → rush delivery |
-| `POST` | `/api/orders/{id}/extend-batch` | Extend batch window +3 min |
-| `GET` | `/api/leaderboard` | Campus CO₂ leaderboard |
-| `POST` | `/api/seed` | Seed demo data |
-
----
 
 ## 🔧 Setup & Installation
 
@@ -333,22 +286,3 @@ cd frontend/api
 node run-seed.js
 ```
 
-### Deployment to Vercel
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-cd frontend
-vercel --prod
-```
-
-Set environment variables in Vercel dashboard:
-- `DATABASE_URL`
-- `JWT_SECRET`
-- `CORS_ORIGINS`
-
----
-
-*Last updated: 11 Feb 2026, 7:23 PM IST*

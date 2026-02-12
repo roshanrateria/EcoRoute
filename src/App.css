@@ -1,0 +1,126 @@
+/* EcoRoute - Global App Styles */
+
+/* Mobile-first container */
+.App {
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 640px) {
+  .App {
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Smooth page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Confetti animation for batching */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall 2s ease-in forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Bounce animation for cart icon */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.bounce-cart {
+  animation: bounce-subtle 0.4s ease;
+}
+
+/* Count-up number styling */
+.impact-number {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Map custom styles */
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Loading spinner */
+@keyframes spin-gentle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin-gentle 1s linear infinite;
+}
+
+/* Sonner toast overrides */
+.sonner-toast {
+  font-family: 'Manrope', sans-serif !important;
+}
+
+/* Image loading placeholder */
+.img-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(193, 240, 60, 0.3);
+  color: #1A4D2E;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #C1F03C;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Prevent overscroll on iOS */
+html, body {
+  overscroll-behavior: none;
+}

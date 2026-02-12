@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --forest-deep: #1A4D2E;
+  --forest-hover: #143D24;
+  --electric-lime: #C1F03C;
+  --lime-hover: #B2E030;
+  --bone-white: #F9F9F7;
+  --pure-white: #FFFFFF;
+  --text-primary: #122618;
+  --text-secondary: #5C6B5F;
+  --text-muted: #8FA392;
+  --error: #FF4D4D;
+  --warning: #FFB020;
+  --success: #C1F03C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bone-white);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bone-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Button press animation */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(26, 77, 46, 0.15);
+}
+
+/* Eco badge pulse */
+@keyframes eco-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(193, 240, 60, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(193, 240, 60, 0);
+  }
+}
+
+.eco-badge-pulse {
+  animation: eco-pulse 2s infinite;
+}
+
+/* Subtle noise texture */
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  font-family: 'Manrope', sans-serif;
+  border-radius: 16px;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  border: none !important;
+  color: var(--forest-deep) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Counter animation class */
+.counter-animate {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Swipe indicator */
+.swipe-indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.swipe-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.swipe-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--forest-deep);
+}
+
+/* Toast styles */
+[data-sonner-toast] {
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Hide scrollbar for swipeable areas */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gradient backgrounds */
+.eco-gradient {
+  background: linear-gradient(135deg, #1A4D2E 0%, #2A6E45 100%);
+}
+
+.lime-gradient {
+  background: linear-gradient(135deg, #C1F03C 0%, #E2F89C 100%);
+}
+
+/* Safe area padding for mobile */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+  }
+}
+
+/* Recharts responsive */
+.recharts-responsive-container {
+  width: 100% !important;
+}
+
+@layer base {
+  :root {
+    --background: 60 10% 97%;
+    --foreground: 140 30% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 140 30% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 140 30% 10%;
+    --primary: 145 48% 21%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 140 8% 94%;
+    --secondary-foreground: 145 48% 21%;
+    --muted: 140 8% 94%;
+    --muted-foreground: 140 12% 45%;
+    --accent: 75 86% 59%;
+    --accent-foreground: 140 30% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 140 8% 90%;
+    --input: 140 8% 90%;
+    --ring: 145 48% 21%;
+    --radius: 0.75rem;
+    --chart-1: 145 48% 21%;
+    --chart-2: 75 86% 59%;
+    --chart-3: 140 30% 35%;
+    --chart-4: 75 60% 70%;
+    --chart-5: 145 30% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
